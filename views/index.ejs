@@ -2,10 +2,23 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.less' />
   </head>
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <div ng-app>
+        <div ng-controller="DemoController">
+            <span class="label" ng-init="count=<%= count %>">Count: {{count}}</span>
+            <button class="btn btn-primary" ng-click="add()">Add More</button>
+        </div>
+    </div>
+    
+    <!-- js -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/demo.controller.js"></script>
   </body>
 </html>
