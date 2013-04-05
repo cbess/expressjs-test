@@ -1,4 +1,4 @@
-var cons = require('consolidate');
+// var cons = require('consolidate');
 
 // homepage
 exports.index = function(req, res) {
