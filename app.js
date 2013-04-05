@@ -20,7 +20,7 @@ var express = require('express'),
     config = require('./local.config');
 
 var app = express();
-var is_dev = !process.env.VCAP_APP_PORT; // appfog port
+// var is_dev = !process.env.VCAP_APP_PORT; // appfog port
 
 // setup redis
 var redis = null,
@@ -38,11 +38,10 @@ if (config.redis_config) {
 app.configure(function() {
     app.set('port', process.env.VCAP_APP_PORT || 3000);
     app.set('views', __dirname + '/views');
-    app.set('redis-config', config.redis_config);
-    app.set('redis-client', redisClient);
+    app.set('redis config', config.redis_config);
+    app.set('redis client', redisClient);
     // set .html as the default extension 
     app.set('view engine', 'ejs');
-    app.set('is_dev', is_dev);
     
     app.use(function(req, res, next) {
         req.redisClient = redisClient;
@@ -68,13 +67,13 @@ app.configure('development', function() {
     app.use(express.errorHandler());
     
     // compile `less` to `css`, then send it as the response
-    app.get("*.less", function(req, res) {
+    app.get('*.less', function(req, res) {
         var path = util.format('%s/public%s', __dirname, req.url);
-        fs.readFile(path, "utf8", function(err, data) {
+        fs.readFile(path, 'utf8', function(err, data) {
             if (err) throw err;
             less.render(data, function(err, css) {
                 if (err) throw err;
-                res.header("Content-type", "text/css");
+                res.header('Content-type', "text/css");
                 res.send(css);
             });
         });
@@ -88,5 +87,5 @@ app.get('/users', user.list);
 app.all('/add-more', routes.addMore);
 
 http.createServer(app).listen(app.get('port'), function() {
-    console.log("Express server listening on port " + app.get('port'));
+    console.log('Express server listening on port ' + app.get('port'));
 });

@@ -6,11 +6,12 @@
         "start": "node app"
     },
     "dependencies": {
-        "express": "",
+        "express": "*",
         "ejs": "*",
         "stylus": "*",
         "handlebars": "*",
         "less": "*",
-        "consolidate": ""
+        "consolidate": "*",
+        "redis": "*"
     }
 }
