@@ -12,6 +12,7 @@
         "handlebars": "*",
         "less": "*",
         "consolidate": "*",
-        "redis": "*"
+        "redis": "*",
+        "underscore": ""
     }
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.less' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <div ng-app>
+        <div ng-controller="DemoController">
+            <p><span ng-pluralize count="items.length" when="when"></span> for <%= key ? key : 'no key' %>.</p>
+            <ul>
+                <li ng-repeat="item in items">
+                    <span>{{ item.name }}</span>
+                </li>
+            </ul>
+            <form ng-submit="addItem()">
+                <input type="text" name="name" value="" id="name" ng-model="itemName" required>
+                <button class="btn btn-primary" type="submit">Add</button>
+            </form>
+            <div ng-class="connectedCssClass">{{ connectionMessage }}</div>
+        </div>
+    </div>
+    
+    <!-- js -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/demo.controller.js"></script>
+  </body>
+</html>

@@ -27,11 +27,14 @@ var redis = null,
     redisClient = null;
 if (config.redis_config) {
     redis = require('redis');
-    var connInfo = config.redis_config['redis-2.2'][0]['credentials'];
-    // console.log(connInfo);
-    redisClient = redis.createClient(connInfo.port, connInfo.host);
-    if (connInfo.password) {
-        redisClient.auth(connInfo.password);
+    var info = config.redis_config['redis-2.2'];
+    if (info) {
+        var connInfo = info[0]['credentials'];
+        // console.log(connInfo);
+        redisClient = redis.createClient(connInfo.port, connInfo.host);
+        if (connInfo.password) {
+            redisClient.auth(connInfo.password);
+        }
     }
 }
 
@@ -64,6 +67,12 @@ app.configure(function() {
 });
 
 app.configure('development', function() {
+    /*
+    app.use(function(err, req, res, next) {
+        res.send(config.redis_config);
+        next(err);
+    });
+    */
     app.use(express.errorHandler());
     
     // compile `less` to `css`, then send it as the response
@@ -73,7 +82,7 @@ app.configure('development', function() {
             if (err) throw err;
             less.render(data, function(err, css) {
                 if (err) throw err;
-                res.header('Content-type', "text/css");
+                res.header('Content-type', 'text/css');
                 res.send(css);
             });
         });
@@ -82,9 +91,13 @@ app.configure('development', function() {
 
 // GET
 app.get('/', routes.index);
+app.get('/redis-index', routes.redisTestIndex);
+app.get('/items-index', routes.itemsIndex);
 app.get('/users', user.list);
+app.get('/items', routes.items);
 // ANY
 app.all('/add-more', routes.addMore);
+app.all('/add-items', routes.addItems)
 
 http.createServer(app).listen(app.get('port'), function() {
     console.log('Express server listening on port ' + app.get('port'));
