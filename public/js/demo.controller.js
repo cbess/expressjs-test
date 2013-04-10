@@ -15,6 +15,7 @@ function DemoController($scope, $http, $timeout) {
     }
     
     // watch for connectivity changes
+    // ref: https://github.com/remy/html5demos/blob/master/demos/offline-events.html
     window.addEventListener("offline", function() {
         self.updateOnlineStatus(false, true);
     }, false);
